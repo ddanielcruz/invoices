@@ -1,4 +1,5 @@
 export * from './address'
 export * from './city'
 export * from './country'
+export * from './invoice'
 export * from './state'
