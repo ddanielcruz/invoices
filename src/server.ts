@@ -1,1 +1,1 @@
-console.log('What is life?');
+console.log('What is life?')
