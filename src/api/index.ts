@@ -7,6 +7,7 @@ import 'express-async-errors'
 
 import { logger } from './middleware'
 import { routes } from './routes'
+import * as database from '../database/connection'
 
 export const api = express()
 api.use(logger)
@@ -14,5 +15,4 @@ api.use(helmet())
 api.use(cors())
 api.use(express.json())
 api.use('/', routes)
-
-console.log(process.env.NODE_ENV)
+database.connect()

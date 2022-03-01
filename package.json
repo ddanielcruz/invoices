@@ -16,11 +16,14 @@
     "npm": "8.x"
   },
   "scripts": {
+    "db:migrate": "npm run typeorm migration:run",
+    "db:migrate:revert": "npm run typeorm migration:revert",
     "dev:server": "tsnd --transpile-only --ignore-watch node_modules src/server",
     "prepare": "husky install",
     "test": "jest --passWithNoTests --noStackTrace --runInBand",
     "test:watch": "npm run test -- --watch",
-    "test:ci": "npm run test -- --coverage"
+    "test:ci": "npm run test -- --coverage",
+    "typeorm": "ts-node --transpile-only node_modules/typeorm/cli.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -29,6 +32,9 @@
     "express-async-errors": "^3.1.1",
     "helmet": "^5.0.2",
     "morgan": "^1.10.0",
+    "pg": "^8.7.3",
+    "typeorm": "^0.2.44",
+    "typeorm-naming-strategies": "^3.0.0",
     "winston": "^3.6.0",
     "winston-daily-rotate-file": "^4.6.1"
   },
