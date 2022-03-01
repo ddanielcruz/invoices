@@ -15,5 +15,8 @@
     "node": "16.x",
     "npm": "8.x"
   },
-  "scripts": {}
+  "scripts": {},
+  "devDependencies": {
+    "git-commit-msg-linter": "^4.1.1"
+  }
 }
