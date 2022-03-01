@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
+import { Address } from '.'
 import { State } from './state'
 
 @Entity({ name: 'cities' })
@@ -15,4 +16,7 @@ export class City {
 
   @ManyToOne(() => State, state => state.cities)
   state: State
+
+  @OneToMany(() => Address, address => address.city)
+  addresses: Address[]
 }
