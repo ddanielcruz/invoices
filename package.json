@@ -1,0 +1,19 @@
+{
+  "name": "invoices",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddanielcruz/invoices.git"
+  },
+  "author": "Daniel Cruz <danielcunha54@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ddanielcruz/invoices/issues"
+  },
+  "homepage": "https://github.com/ddanielcruz/invoices#readme",
+  "engines": {
+    "node": "16.x",
+    "npm": "8.x"
+  },
+  "scripts": {}
+}
