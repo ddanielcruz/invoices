@@ -10,7 +10,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "import-helpers"],
   "rules": {
     "prettier/prettier": [
       "error",
@@ -21,6 +21,14 @@
         "arrowParens": "avoid",
         "endOfLine": "auto",
         "printWidth": 100
+      }
+    ],
+    "import-helpers/order-imports": [
+      "warn",
+      {
+        "newlinesBetween": "always",
+        "groups": ["module", "/^@/", ["parent", "sibling", "index"]],
+        "alphabetize": { "order": "asc", "ignoreCase": true }
       }
     ],
     "@typescript-eslint/explicit-module-boundary-types": "off",

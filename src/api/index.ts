@@ -5,9 +5,9 @@ import express from 'express'
 import helmet from 'helmet'
 import 'express-async-errors'
 
+import * as database from '../database/connection'
 import { logger } from './middleware'
 import { routes } from './routes'
-import * as database from '../database/connection'
 
 export const api = express()
 api.use(logger)
