@@ -1,6 +1,7 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 
 import { City } from './city'
+import { Company } from './company'
 
 @Entity({ name: 'addresses' })
 export class Address {
@@ -23,5 +24,8 @@ export class Address {
   complement?: string
 
   @ManyToOne(() => City, city => city.addresses)
-  city: City
+  city?: City
+
+  @OneToOne(() => Company)
+  company?: Company
 }

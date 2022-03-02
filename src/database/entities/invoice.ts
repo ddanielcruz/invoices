@@ -1,4 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+
+import { Company } from './company'
 
 export type InvoiceStatus = 'PENDING' | 'SUCCESS' | 'FAILURE'
 
@@ -18,6 +20,9 @@ export class Invoice {
 
   @CreateDateColumn()
   createdAt: Date
+
+  @OneToOne(() => Company)
+  company?: Company
 
   constructor(url: string) {
     this.url = url

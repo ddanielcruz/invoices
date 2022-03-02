@@ -15,8 +15,8 @@ export class City {
   name: string
 
   @ManyToOne(() => State, state => state.cities)
-  state: State
+  state?: State
 
   @OneToMany(() => Address, address => address.city)
-  addresses: Address[]
+  addresses?: Address[]
 }
