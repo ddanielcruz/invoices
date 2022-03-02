@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 
 import { Company } from './company'
+import { Product } from './product'
 
 export type InvoiceStatus = 'PENDING' | 'SUCCESS' | 'FAILURE'
 
@@ -23,6 +24,8 @@ export class Invoice {
 
   @OneToOne(() => Company)
   company?: Company
+
+  products?: Product[]
 
   constructor(url: string) {
     this.url = url

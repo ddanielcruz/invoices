@@ -30,7 +30,7 @@ export class Company {
   document: string
 
   @CreateDateColumn()
-  createdAt: string
+  createdAt: Date
 
   @OneToOne(() => Invoice)
   @JoinColumn()
