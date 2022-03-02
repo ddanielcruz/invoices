@@ -14,10 +14,6 @@ export class createCompanies1646263577905 implements MigrationInterface {
             default: 'uuid_generate_v4()'
           },
           {
-            name: 'invoice_id',
-            type: 'uuid'
-          },
-          {
             name: 'address_id',
             type: 'uuid'
           },
@@ -41,12 +37,6 @@ export class createCompanies1646263577905 implements MigrationInterface {
           }
         ],
         foreignKeys: [
-          {
-            columnNames: ['invoice_id'],
-            referencedColumnNames: ['id'],
-            referencedTableName: 'invoices',
-            onDelete: 'RESTRICT'
-          },
           {
             columnNames: ['address_id'],
             referencedColumnNames: ['id'],

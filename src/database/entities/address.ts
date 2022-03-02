@@ -26,6 +26,6 @@ export class Address {
   @ManyToOne(() => City, city => city.addresses)
   city?: City
 
-  @OneToOne(() => Company)
+  @OneToOne(() => Company, company => company.address)
   company?: Company
 }

@@ -1,7 +1,4 @@
-import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
-
-import { Company } from './company'
-import { Product } from './product'
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 export type InvoiceStatus = 'PENDING' | 'SUCCESS' | 'FAILURE'
 
@@ -19,13 +16,11 @@ export class Invoice {
   @Column({ type: 'json' })
   error?: any
 
+  @Column()
+  issuedAt?: Date
+
   @CreateDateColumn()
   createdAt: Date
-
-  @OneToOne(() => Company)
-  company?: Company
-
-  products?: Product[]
 
   constructor(url: string) {
     this.url = url

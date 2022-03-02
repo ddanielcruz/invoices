@@ -3,19 +3,18 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn
 } from 'typeorm'
 
-import { Address, Invoice } from '.'
+import { Address } from './address'
+import { Product } from './product'
 
 @Entity({ name: 'entities' })
 export class Company {
   @PrimaryGeneratedColumn('uuid')
   id: string
-
-  @Column()
-  invoiceId: string
 
   @Column()
   addressId: string
@@ -32,11 +31,10 @@ export class Company {
   @CreateDateColumn()
   createdAt: Date
 
-  @OneToOne(() => Invoice)
-  @JoinColumn()
-  invoice?: Invoice
-
-  @OneToOne(() => Address)
+  @OneToOne(() => Address, addr => addr.company)
   @JoinColumn()
   address?: Address
+
+  @OneToMany(() => Product, product => product.company)
+  products?: Product[]
 }

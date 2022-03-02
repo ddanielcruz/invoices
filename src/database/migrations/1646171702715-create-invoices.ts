@@ -28,6 +28,11 @@ export class createInvoices1646171702715 implements MigrationInterface {
             isNullable: true
           },
           {
+            name: 'issued_at',
+            type: 'timestamp',
+            isNullable: true
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()'
