@@ -1,4 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+
+import { ProductPurchase } from './product-purchase'
 
 export type InvoiceStatus = 'PENDING' | 'SUCCESS' | 'FAILURE'
 
@@ -21,6 +23,9 @@ export class Invoice {
 
   @CreateDateColumn()
   createdAt: Date
+
+  @OneToMany(() => ProductPurchase, purchase => purchase.invoice)
+  purchases?: ProductPurchase[]
 
   constructor(url: string) {
     this.url = url
