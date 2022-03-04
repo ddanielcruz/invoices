@@ -18,7 +18,9 @@
   "scripts": {
     "db:migrate": "npm run typeorm migration:run",
     "db:migrate:revert": "npm run typeorm migration:revert",
+    "dev": "concurrently npm:dev:server npm:dev:worker -c \"blue.bold,magenta.bold\"",
     "dev:server": "tsnd --transpile-only --ignore-watch node_modules src/server",
+    "dev:worker": "tsnd --transpile-only --ignore-watch node_modules src/queue/worker",
     "prepare": "husky install",
     "test": "jest --passWithNoTests --noStackTrace --runInBand",
     "test:watch": "npm run test -- --watch",
@@ -26,6 +28,7 @@
     "typeorm": "ts-node --transpile-only node_modules/typeorm/cli.js"
   },
   "dependencies": {
+    "bullmq": "^1.76.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
@@ -49,6 +52,7 @@
     "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",
+    "concurrently": "^7.0.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-config-standard": "^16.0.3",
