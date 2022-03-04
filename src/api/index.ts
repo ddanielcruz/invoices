@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import 'reflect-metadata'
 
 import cors from 'cors'
 import express from 'express'
@@ -8,6 +9,7 @@ import 'express-async-errors'
 import * as database from '../database/connection'
 import { logger } from './middleware'
 import { routes } from './routes'
+import '../config/container'
 
 export const api = express()
 api.use(logger)

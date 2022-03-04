@@ -33,6 +33,8 @@
     "helmet": "^5.0.2",
     "morgan": "^1.10.0",
     "pg": "^8.7.3",
+    "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.6.0",
     "typeorm": "^0.2.44",
     "typeorm-naming-strategies": "^3.0.0",
     "winston": "^3.6.0",
