@@ -1,5 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm'
 
+import { normalizeString } from '../../core/helpers'
 import countries from '../data/countries.json'
 import { Country, State } from '../entities'
 export class seedCountriesStatesAndCities1646170506374 implements MigrationInterface {
@@ -23,10 +24,12 @@ export class seedCountriesStatesAndCities1646170506374 implements MigrationInter
         values = state.cities
           .map(name => {
             const sanitizedName = name.replace("'", "''")
-            return `('${stateId}', '${sanitizedName}')`
+            return `('${stateId}', '${sanitizedName}', '${normalizeString(sanitizedName)}')`
           })
           .join(', ')
-        await queryRunner.query(`INSERT INTO cities (state_id, name) VALUES ${values}`)
+        await queryRunner.query(
+          `INSERT INTO cities (state_id, name, normalized_name) VALUES ${values}`
+        )
       }
     }
   }

@@ -20,6 +20,10 @@ export class createCities1646170197534 implements MigrationInterface {
           {
             name: 'name',
             type: 'varchar'
+          },
+          {
+            name: 'normalized_name',
+            type: 'varchar'
           }
         ],
         foreignKeys: [

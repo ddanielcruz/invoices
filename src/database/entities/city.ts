@@ -14,6 +14,9 @@ export class City {
   @Column()
   name: string
 
+  @Column()
+  normalizedName: string
+
   @ManyToOne(() => State, state => state.cities)
   state?: State
 
