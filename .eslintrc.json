@@ -37,6 +37,7 @@
     "@typescript-eslint/no-empty-function": "off",
     "indent": "off",
     "@typescript-eslint/indent": ["error", 2],
-    "@typescript-eslint/no-non-null-assertion": "off"
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "no-new": "off"
   }
 }
