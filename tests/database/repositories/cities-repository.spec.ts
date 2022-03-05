@@ -18,6 +18,7 @@ describe('CitiesRepository', () => {
   beforeAll(async () => {
     connection = await connect()
     repository = getRepository(City)
+    await repository.query('DELETE FROM addresses')
     await repository.query('DELETE FROM countries')
     await getRepository(Country).save(FAKE_COUNTRY)
     state = await getRepository(State).save(FAKE_STATE)

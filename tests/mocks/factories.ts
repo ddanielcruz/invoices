@@ -1,7 +1,7 @@
 import faker from '@faker-js/faker'
 
 import { normalizeString } from '../../src/core/helpers'
-import { City, Country, Invoice, State } from '../../src/database/entities'
+import { Address, City, Company, Country, Invoice, State } from '../../src/database/entities'
 
 export const makeInvoice = (other?: Partial<Invoice>): Invoice => {
   const invoice = new Invoice(other?.url ?? faker.internet.url())
@@ -43,3 +43,29 @@ export const makeCity = (state: State, other?: Partial<City>): City => {
   return city
 }
 export const FAKE_CITY = makeCity(FAKE_STATE)
+
+export const makeAddress = (city: City): Address => {
+  const address = new Address()
+  address.id = faker.datatype.uuid()
+  address.cityId = city.id
+  address.street = faker.address.streetName()
+  address.neighborhood = faker.address.streetName()
+  address.zipcode = faker.address.zipCode()
+  address.complement = faker.address.secondaryAddress()
+  return address
+}
+export const FAKE_ADDRESS = makeAddress(FAKE_CITY)
+
+export const makeCompany = (address: Address, other?: Partial<Company>): Company => {
+  const company = new Company()
+  company.id = other?.id || faker.datatype.uuid()
+  company.addressId = address.id
+  company.document = other?.document || faker.datatype.string()
+  company.companyName = other?.companyName || faker.company.companyName()
+  company.tradeName = other?.tradeName || faker.company.companyName()
+  company.createdAt = other?.createdAt || new Date()
+
+  return company
+}
+export const FAKE_COMPANY = makeCompany(FAKE_ADDRESS)
+export const FAKE_COMPANY_WITH_ADDR: Company = { ...FAKE_COMPANY, address: FAKE_ADDRESS }

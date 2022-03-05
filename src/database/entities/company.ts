@@ -11,7 +11,7 @@ import {
 import { Address } from './address'
 import { Product } from './product'
 
-@Entity({ name: 'entities' })
+@Entity({ name: 'companies' })
 export class Company {
   @PrimaryGeneratedColumn('uuid')
   id: string
@@ -31,7 +31,7 @@ export class Company {
   @CreateDateColumn()
   createdAt: Date
 
-  @OneToOne(() => Address, addr => addr.company)
+  @OneToOne(() => Address, addr => addr.company, { cascade: true })
   @JoinColumn()
   address?: Address
 
