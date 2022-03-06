@@ -5,7 +5,7 @@ import { City } from '../entities'
 
 export interface CitiesRepository {
   findById(id: string): Promise<City | undefined>
-  findByNormalizedName(name: string): Promise<City | undefined>
+  searchByNormalizedName(name: string): Promise<City[]>
 }
 
 export class CitiesRepositoryImpl implements CitiesRepository {
@@ -19,8 +19,13 @@ export class CitiesRepositoryImpl implements CitiesRepository {
     return this.repository.findOne(id, { relations: ['state'] })
   }
 
-  findByNormalizedName(name: string): Promise<City | undefined> {
+  searchByNormalizedName(name: string): Promise<City[]> {
     const normalizedName = normalizeString(name)
-    return this.repository.findOne({ normalizedName })
+    return this.repository
+      .createQueryBuilder('city')
+      .innerJoinAndSelect('city.state', 'state')
+      .where('city.normalized_name LIKE :name', { name: `%${normalizedName}%` })
+      .orderBy('city.name')
+      .getMany()
   }
 }

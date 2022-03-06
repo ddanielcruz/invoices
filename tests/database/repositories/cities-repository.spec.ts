@@ -49,25 +49,50 @@ describe('CitiesRepository', () => {
     })
   })
 
-  describe('findByNormalizedName', () => {
+  describe('searchByNormalizedName', () => {
     test('should find city by name', async () => {
       const { sut } = makeSut()
       const city = await repository.save(makeCity(state, { name: 'any-name' }))
-      const foundCity = await sut.findByNormalizedName(city.name)
-      expect(foundCity).toEqual(city)
+      const cities = await sut.searchByNormalizedName(city.name)
+      expect(cities.length).toBe(1)
+      expect(cities[0]).toEqual({ ...city, state: expect.any(State) })
     })
 
     test('should find city by normalized name', async () => {
       const { sut } = makeSut()
       const city = await repository.save(makeCity(state, { name: 'any-name' }))
-      const foundCity = await sut.findByNormalizedName(city.normalizedName)
-      expect(foundCity).toEqual(city)
+      const cities = await sut.searchByNormalizedName(city.normalizedName)
+      expect(cities.length).toBe(1)
+      expect(cities[0]).toEqual({ ...city, state: expect.any(State) })
     })
 
-    test('should return undefined when city is not found', async () => {
+    test('should find city by partial name', async () => {
       const { sut } = makeSut()
-      const foundCity = await sut.findByNormalizedName('any-name')
-      expect(foundCity).toBeFalsy()
+      const city = await repository.save(makeCity(state, { name: 'any-name' }))
+      const cities = await sut.searchByNormalizedName('any')
+      expect(cities.length).toBe(1)
+      expect(cities[0]).toEqual({ ...city, state: expect.any(State) })
+    })
+
+    test('should find city by name with extra characters', async () => {
+      const { sut } = makeSut()
+      const city = await repository.save(makeCity(state, { name: 'any-name' }))
+      const cities = await sut.searchByNormalizedName(` ${city.name} `)
+      expect(cities.length).toBe(1)
+      expect(cities[0]).toEqual({ ...city, state: expect.any(State) })
+    })
+
+    test('should find all cities that matches the partial name', async () => {
+      const { sut } = makeSut()
+      const createdCities = await repository.save([
+        makeCity(state, { name: 'any-name' }),
+        makeCity(state, { name: 'any-other-name' })
+      ])
+      const foundCities = await sut.searchByNormalizedName('any')
+      expect(foundCities.length).toBe(createdCities.length)
+      for (let idx = 0; idx < foundCities.length; idx++) {
+        expect(foundCities[idx]).toEqual({ ...createdCities[idx], state: expect.any(State) })
+      }
     })
   })
 })
