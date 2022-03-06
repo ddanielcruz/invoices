@@ -1,7 +1,15 @@
 import faker from '@faker-js/faker'
 
 import { normalizeString } from '../../src/core/helpers'
-import { Address, City, Company, Country, Invoice, State } from '../../src/database/entities'
+import {
+  Address,
+  City,
+  Company,
+  Country,
+  Invoice,
+  Product,
+  State
+} from '../../src/database/entities'
 
 export const makeInvoice = (other?: Partial<Invoice>): Invoice => {
   const invoice = new Invoice(other?.url ?? faker.internet.url())
@@ -58,14 +66,27 @@ export const FAKE_ADDRESS = makeAddress(FAKE_CITY)
 
 export const makeCompany = (address: Address, other?: Partial<Company>): Company => {
   const company = new Company()
-  company.id = other?.id || faker.datatype.uuid()
+  company.id = other?.id ?? faker.datatype.uuid()
   company.addressId = address.id
-  company.document = other?.document || faker.datatype.string()
-  company.companyName = other?.companyName || faker.company.companyName()
-  company.tradeName = other?.tradeName || faker.company.companyName()
-  company.createdAt = other?.createdAt || new Date()
+  company.document = other?.document ?? faker.datatype.string()
+  company.companyName = other?.companyName ?? faker.company.companyName()
+  company.tradeName = other?.tradeName ?? faker.company.companyName()
+  company.createdAt = other?.createdAt ?? new Date()
 
   return company
 }
 export const FAKE_COMPANY = makeCompany(FAKE_ADDRESS)
 export const FAKE_COMPANY_WITH_ADDR: Company = { ...FAKE_COMPANY, address: FAKE_ADDRESS }
+
+export const makeProdudct = (company: Company, other?: Partial<Product>): Product => {
+  const product = new Product()
+  product.id = other?.id ?? faker.datatype.uuid()
+  product.companyId = other?.companyId ?? company.id
+  product.referenceCode = other?.referenceCode ?? faker.datatype.number().toString()
+  product.name = other?.name ?? faker.lorem.words()
+  product.unitOfMeasure = other?.unitOfMeasure ?? faker.lorem.word()
+  product.createdAt = other?.createdAt ?? new Date()
+
+  return product
+}
+export const FAKE_PRODUCT = makeProdudct(FAKE_COMPANY)
