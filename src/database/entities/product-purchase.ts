@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 
+import { NumericColumnTransformer } from '../transformers'
 import { Invoice } from './invoice'
 import { Product } from './product'
 
@@ -14,7 +15,7 @@ export class ProductPurchase {
   @Column()
   productId: string
 
-  @Column()
+  @Column({ transformer: new NumericColumnTransformer() })
   price: number
 
   @Column()
