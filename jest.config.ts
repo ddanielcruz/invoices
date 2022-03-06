@@ -13,11 +13,8 @@ export default {
   setupFiles: ['<rootDir>/jest.setup.ts'],
   preset: 'ts-jest',
   modulePathIgnorePatterns: [
+    'index.ts',
     '<rootDir>/dist/',
-    '<rootDir>/src/database/entities/index.ts',
-    '<rootDir>/src/database/repositories/index.ts',
-    '<rootDir>/src/core/errors/index.ts',
-    '<rootDir>/src/queue/jobs/index.ts',
     '<rootDir>/src/queue/jobs/base-job.ts',
     '<rootDir>/tests/mocks/'
   ]
