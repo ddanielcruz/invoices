@@ -8,6 +8,7 @@ import {
   Country,
   Invoice,
   Product,
+  ProductPurchase,
   State
 } from '../../src/database/entities'
 
@@ -72,7 +73,6 @@ export const makeCompany = (address: Address, other?: Partial<Company>): Company
   company.companyName = other?.companyName ?? faker.company.companyName()
   company.tradeName = other?.tradeName ?? faker.company.companyName()
   company.createdAt = other?.createdAt ?? new Date()
-
   return company
 }
 export const FAKE_COMPANY = makeCompany(FAKE_ADDRESS)
@@ -81,12 +81,25 @@ export const FAKE_COMPANY_WITH_ADDR: Company = { ...FAKE_COMPANY, address: FAKE_
 export const makeProdudct = (company: Company, other?: Partial<Product>): Product => {
   const product = new Product()
   product.id = other?.id ?? faker.datatype.uuid()
-  product.companyId = other?.companyId ?? company.id
+  product.companyId = company.id
   product.referenceCode = other?.referenceCode ?? faker.datatype.number().toString()
   product.name = other?.name ?? faker.lorem.words()
   product.unitOfMeasure = other?.unitOfMeasure ?? faker.lorem.word()
   product.createdAt = other?.createdAt ?? new Date()
-
   return product
 }
 export const FAKE_PRODUCT = makeProdudct(FAKE_COMPANY)
+
+export const makeProductPurchase = (
+  invoice: Invoice,
+  product: Product,
+  other?: Partial<ProductPurchase>
+): ProductPurchase => {
+  const purchase = new ProductPurchase()
+  purchase.invoiceId = invoice.id
+  purchase.productId = product.id
+  purchase.price = other?.price ?? faker.datatype.number()
+  purchase.quantity = other?.quantity ?? faker.datatype.number()
+  return purchase
+}
+export const FAKE_PRODUCT_PURCHASE = makeProductPurchase(FAKE_INVOICE, FAKE_PRODUCT)

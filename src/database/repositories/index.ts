@@ -1,4 +1,5 @@
 export * from './cities-repository'
 export * from './companies-repository'
 export * from './invoices-repository'
+export * from './product-purchases-repository'
 export * from './products-repository'
