@@ -27,7 +27,7 @@ export class createProductPurchases1646264955898 implements MigrationInterface {
           },
           {
             name: 'quantity',
-            type: 'integer'
+            type: 'numeric(15,6)'
           }
         ],
         foreignKeys: [
