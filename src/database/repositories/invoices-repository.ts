@@ -3,6 +3,7 @@ import { getRepository, Repository } from 'typeorm'
 import { Invoice } from '../entities'
 
 export interface InvoicesRepository {
+  findById(id: string): Promise<Invoice | undefined>
   findByUrl(url: string): Promise<Invoice | undefined>
   store(invoice: Invoice): Promise<Invoice>
 }
@@ -12,6 +13,10 @@ export class InvoicesRepositoryImpl implements InvoicesRepository {
 
   constructor() {
     this.repository = getRepository(Invoice)
+  }
+
+  findById(id: string): Promise<Invoice | undefined> {
+    return this.repository.findOne(id)
   }
 
   findByUrl(url: string): Promise<Invoice | undefined> {

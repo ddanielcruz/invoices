@@ -1,3 +1,4 @@
+// TODO: Update nullable columns to "| null syntax" to avoid problems with undefined values
 export * from './address'
 export * from './city'
 export * from './company'

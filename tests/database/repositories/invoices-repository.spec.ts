@@ -1,5 +1,7 @@
 import { Connection, getRepository, Repository } from 'typeorm'
 
+import faker from '@faker-js/faker'
+
 import { connect } from '../../../src/database/connection'
 import { Invoice } from '../../../src/database/entities'
 import { InvoicesRepositoryImpl } from '../../../src/database/repositories'
@@ -26,6 +28,21 @@ describe('InvoicesRepository', () => {
 
   afterAll(async () => {
     await connection?.close()
+  })
+
+  describe('findById', () => {
+    test('should find invoice by ID', async () => {
+      const { sut } = makeSut()
+      const invoice = await repository.save(makeInvoice())
+      const foundInvoice = await sut.findById(invoice.id)
+      expect(foundInvoice).toEqual(invoice)
+    })
+
+    test('should return undefined when invoice is not found', async () => {
+      const { sut } = makeSut()
+      const foundInvoice = await sut.findById(faker.datatype.uuid())
+      expect(foundInvoice).toBeFalsy()
+    })
   })
 
   describe('findByUrl', () => {
