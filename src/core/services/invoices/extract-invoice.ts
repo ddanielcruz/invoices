@@ -1,5 +1,6 @@
 import axios from 'axios'
 import * as cheerio from 'cheerio'
+import { singleton } from 'tsyringe'
 import { URL } from 'url'
 
 import { dayjs } from '../../../config/dayjs'
@@ -11,6 +12,7 @@ export interface InvoiceProduct {
   referenceCode: string
   name: string
   unitOfMeasure: string
+  quantity: number
   price: number
 }
 
@@ -20,6 +22,7 @@ export interface Invoice {
   products: InvoiceProduct[]
 }
 
+@singleton()
 export class ExtractInvoice {
   async execute(rawUrl: string): Promise<Invoice> {
     // Retrieve invoice ID and compose invoice URL
@@ -85,6 +88,7 @@ export class ExtractInvoice {
       products.push({
         referenceCode: info[0],
         name: info[1],
+        quantity: parseLocaleNumber(info[2], 'pt-BR'),
         unitOfMeasure: info[3],
         price: parseLocaleNumber(info[4], 'pt-BR')
       })

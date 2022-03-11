@@ -48,6 +48,7 @@ describe('ExtractInvoice', () => {
       referenceCode: '934',
       name: 'Mel Sulmel 1kg',
       unitOfMeasure: 'UN',
+      quantity: 1,
       price: 33
     })
   })
