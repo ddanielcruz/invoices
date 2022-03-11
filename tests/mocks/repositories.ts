@@ -1,3 +1,5 @@
+import faker from '@faker-js/faker'
+
 import { City, Company, Invoice, Product, ProductPurchase } from '../../src/database/entities'
 import {
   CitiesRepository,
@@ -50,7 +52,7 @@ export const makeCompaniesRepository = (): CompaniesRepository => {
     }
 
     async store(company: Company): Promise<Company> {
-      return company
+      return { ...company, id: company.id ?? faker.datatype.uuid() }
     }
   }
   return new CompaniesRepositoryStub()
@@ -63,7 +65,7 @@ export const makeProductsRepository = (): ProductsRepository => {
     }
 
     async store(product: Product): Promise<Product> {
-      return product
+      return { ...product, id: product.id ?? faker.datatype.uuid() }
     }
   }
   return new ProductsRepositoryStub()

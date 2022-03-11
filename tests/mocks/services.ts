@@ -34,6 +34,27 @@ export const FAKE_EXTRACTED_INVOICE: Invoice = {
       unitOfMeasure: 'any-unit-of-measure',
       quantity: 1,
       price: 10
+    },
+    {
+      name: 'any-name',
+      referenceCode: 'any-code',
+      unitOfMeasure: 'any-unit-of-measure',
+      quantity: 1,
+      price: 10
+    },
+    {
+      name: 'any-name',
+      referenceCode: 'any-code',
+      unitOfMeasure: 'any-unit-of-measure',
+      quantity: 1,
+      price: 12
+    },
+    {
+      name: 'other-name',
+      referenceCode: 'other-code',
+      unitOfMeasure: 'other-unit-of-measure',
+      quantity: 1,
+      price: 10
     }
   ]
 }
