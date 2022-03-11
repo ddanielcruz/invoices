@@ -1,5 +1,5 @@
 import { Queue } from 'bullmq'
-import { inject } from 'tsyringe'
+import { inject, singleton } from 'tsyringe'
 
 import { Invoice } from '../../../database/entities'
 import { InvoicesRepository } from '../../../database/repositories'
@@ -7,6 +7,7 @@ import { PROCESS_INVOICE_EXTRACTION } from '../../../queue/jobs/process-invoice-
 import { FieldError } from '../../errors'
 import { isValidUrl } from '../../helpers'
 
+@singleton()
 export class QueueInvoiceExtraction {
   constructor(
     @inject('InvoicesRepository')
