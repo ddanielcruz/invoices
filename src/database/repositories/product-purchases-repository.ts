@@ -4,7 +4,7 @@ import { ProductPurchase } from '../entities'
 
 export interface ProductPurchasesRepository {
   findByProduct(productId: string): Promise<ProductPurchase[]>
-  store(purchase: ProductPurchase): Promise<ProductPurchase>
+  store(purchases: ProductPurchase[]): Promise<ProductPurchase[]>
 }
 
 export class ProductPurchasesRepositoryImpl implements ProductPurchasesRepository {
@@ -18,7 +18,7 @@ export class ProductPurchasesRepositoryImpl implements ProductPurchasesRepositor
     return this.repository.find({ productId })
   }
 
-  store(purchase: ProductPurchase): Promise<ProductPurchase> {
-    return this.repository.save(purchase)
+  store(purchases: ProductPurchase[]): Promise<ProductPurchase[]> {
+    return this.repository.save(purchases)
   }
 }

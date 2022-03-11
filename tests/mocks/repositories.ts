@@ -75,8 +75,8 @@ export const makeProductPurchasesRepository = (): ProductPurchasesRepository => 
       return []
     }
 
-    async store(purchase: ProductPurchase): Promise<ProductPurchase> {
-      return purchase
+    async store(purchases: ProductPurchase[]): Promise<ProductPurchase[]> {
+      return purchases
     }
   }
   return new ProductPurchasesRepositoryStub()

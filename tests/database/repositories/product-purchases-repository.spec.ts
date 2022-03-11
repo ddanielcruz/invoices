@@ -81,7 +81,7 @@ describe('ProductPurchasesRepository', () => {
   describe('store', () => {
     test('should create a new purchase when brand new', async () => {
       const { sut } = makeSut()
-      await sut.store(FAKE_PRODUCT_PURCHASE)
+      await sut.store([FAKE_PRODUCT_PURCHASE])
       const existingPurchases = await repository.find()
       expect(existingPurchases).toEqual([FAKE_PRODUCT_PURCHASE])
     })
@@ -90,7 +90,7 @@ describe('ProductPurchasesRepository', () => {
       const { sut } = makeSut()
       await repository.save(FAKE_PRODUCT_PURCHASE)
       FAKE_PRODUCT_PURCHASE.price = 10
-      await sut.store(FAKE_PRODUCT_PURCHASE)
+      await sut.store([FAKE_PRODUCT_PURCHASE])
       const existingPurchases = await repository.find()
       expect(existingPurchases).toEqual([FAKE_PRODUCT_PURCHASE])
     })
