@@ -24,8 +24,8 @@ export class Address {
   complement?: string
 
   @ManyToOne(() => City, city => city.addresses)
-  city?: City
+  city: City | null
 
   @OneToOne(() => Company, company => company.address)
-  company?: Company
+  company: Company | null
 }

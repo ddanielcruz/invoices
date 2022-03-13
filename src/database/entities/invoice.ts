@@ -16,16 +16,16 @@ export class Invoice {
   status: InvoiceStatus = 'PENDING'
 
   @Column({ type: 'json' })
-  error?: any
+  error: any
 
-  @Column()
-  issuedAt?: Date
+  @Column({ type: 'timestamp' })
+  issuedAt: Date | null
 
   @CreateDateColumn()
   createdAt: Date
 
   @OneToMany(() => ProductPurchase, purchase => purchase.invoice)
-  purchases?: ProductPurchase[]
+  purchases: ProductPurchase[] | null
 
   constructor(url: string) {
     this.url = url

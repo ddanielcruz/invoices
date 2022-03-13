@@ -22,8 +22,8 @@ export class ProductPurchase {
   quantity: number
 
   @ManyToOne(() => Product, product => product.purchases)
-  product?: Product
+  product: Product | null
 
   @ManyToOne(() => Invoice, invoice => invoice.purchases)
-  invoice?: Invoice
+  invoice: Invoice | null
 }

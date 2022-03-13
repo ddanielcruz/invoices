@@ -18,8 +18,8 @@ export class City {
   normalizedName: string
 
   @ManyToOne(() => State, state => state.cities)
-  state?: State
+  state: State | null
 
   @OneToMany(() => Address, address => address.city)
-  addresses?: Address[]
+  addresses: Address[] | null
 }

@@ -33,8 +33,8 @@ export class Company {
 
   @OneToOne(() => Address, addr => addr.company, { cascade: true })
   @JoinColumn()
-  address?: Address
+  address: Address | null
 
   @OneToMany(() => Product, product => product.company)
-  products?: Product[]
+  products: Product[] | null
 }

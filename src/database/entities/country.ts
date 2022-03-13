@@ -14,5 +14,5 @@ export class Country {
   code: string
 
   @OneToMany(() => State, state => state.country)
-  states?: State[]
+  states: State[] | null
 }

@@ -31,8 +31,8 @@ export class Product {
   createdAt: Date
 
   @ManyToOne(() => Company, company => company.products)
-  company?: Company
+  company: Company | null
 
   @OneToMany(() => ProductPurchase, purchase => purchase.product)
-  purchases?: ProductPurchase[]
+  purchases: ProductPurchase[] | null
 }

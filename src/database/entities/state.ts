@@ -18,8 +18,8 @@ export class State {
   code: string
 
   @ManyToOne(() => Country, country => country.states)
-  country?: Country
+  country: Country | null
 
   @OneToMany(() => City, city => city.state)
-  cities?: City[]
+  cities: City[] | null
 }
