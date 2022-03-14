@@ -9,6 +9,7 @@ import {
 } from 'typeorm'
 
 import { Address } from './address'
+import { Invoice } from './invoice'
 import { Product } from './product'
 
 @Entity({ name: 'companies' })
@@ -37,4 +38,7 @@ export class Company {
 
   @OneToMany(() => Product, product => product.company)
   products: Product[] | null
+
+  @OneToMany(() => Invoice, invoice => invoice.company)
+  invoices: Invoice[] | null
 }

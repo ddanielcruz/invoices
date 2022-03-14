@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class createInvoices1646171702715 implements MigrationInterface {
+export class createInvoices1646263577906 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -12,6 +12,11 @@ export class createInvoices1646171702715 implements MigrationInterface {
             isPrimary: true,
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()'
+          },
+          {
+            name: 'company_id',
+            type: 'uuid',
+            isNullable: true
           },
           {
             name: 'url',
@@ -36,6 +41,14 @@ export class createInvoices1646171702715 implements MigrationInterface {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()'
+          }
+        ],
+        foreignKeys: [
+          {
+            columnNames: ['company_id'],
+            referencedColumnNames: ['id'],
+            referencedTableName: 'companies',
+            onDelete: 'CASCADE'
           }
         ]
       })

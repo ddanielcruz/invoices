@@ -1,5 +1,13 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn
+} from 'typeorm'
 
+import { Company } from './company'
 import { ProductPurchase } from './product-purchase'
 
 export type InvoiceStatus = 'PENDING' | 'SUCCESS' | 'FAILURE'
@@ -8,6 +16,9 @@ export type InvoiceStatus = 'PENDING' | 'SUCCESS' | 'FAILURE'
 export class Invoice {
   @PrimaryGeneratedColumn('uuid')
   id: string
+
+  @Column({ type: 'varchar' })
+  companyId: string | null
 
   @Column()
   url: string
@@ -23,6 +34,9 @@ export class Invoice {
 
   @CreateDateColumn()
   createdAt: Date
+
+  @ManyToOne(() => Company, company => company.invoices)
+  company: Company
 
   @OneToMany(() => ProductPurchase, purchase => purchase.invoice)
   purchases: ProductPurchase[] | null

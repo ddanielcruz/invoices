@@ -18,7 +18,7 @@ export class ProductPurchase {
   @Column({ transformer: new NumericColumnTransformer() })
   price: number
 
-  @Column()
+  @Column({ transformer: new NumericColumnTransformer() })
   quantity: number
 
   @ManyToOne(() => Product, product => product.purchases)
