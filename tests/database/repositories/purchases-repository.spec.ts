@@ -9,43 +9,43 @@ import {
   Country,
   Invoice,
   Product,
-  ProductPurchase,
+  Purchase,
   State
 } from '../../../src/database/entities'
-import { ProductPurchasesRepositoryImpl } from '../../../src/database/repositories'
+import { PurchasesRepositoryImpl } from '../../../src/database/repositories'
 import {
   FAKE_COUNTRY,
   FAKE_STATE,
   FAKE_CITY,
   FAKE_COMPANY_WITH_ADDR,
   FAKE_PRODUCT,
-  FAKE_PRODUCT_PURCHASE,
+  FAKE_PURCHASE,
   FAKE_INVOICE
 } from '../../mocks/factories'
 
 const makeSut = () => {
-  const sut = new ProductPurchasesRepositoryImpl()
+  const sut = new PurchasesRepositoryImpl()
   return { sut }
 }
 
-describe('ProductPurchasesRepository', () => {
+describe('PurchasesRepository', () => {
   let connection: Connection
-  let repository: Repository<ProductPurchase>
+  let repository: Repository<Purchase>
 
   beforeAll(async () => {
     connection = await connect()
-    repository = getRepository(ProductPurchase)
+    repository = getRepository(Purchase)
     await getRepository(Invoice).save(FAKE_INVOICE)
     await getRepository(Country).save(FAKE_COUNTRY)
     await getRepository(State).save(FAKE_STATE)
     await getRepository(City).save(FAKE_CITY)
     await getRepository(Company).save(FAKE_COMPANY_WITH_ADDR)
     await getRepository(Product).save(FAKE_PRODUCT)
-    await repository.query('DELETE FROM product_purchases')
+    await repository.query('DELETE FROM purchases')
   })
 
   afterEach(async () => {
-    await repository.query('DELETE FROM product_purchases')
+    await repository.query('DELETE FROM purchases')
   })
 
   afterAll(async () => {
@@ -59,10 +59,10 @@ describe('ProductPurchasesRepository', () => {
   describe('findByProduct', () => {
     test('should find purchases by product', async () => {
       const { sut } = makeSut()
-      await repository.save(FAKE_PRODUCT_PURCHASE)
+      await repository.save(FAKE_PURCHASE)
       const foundPurchases = await sut.findByProduct(FAKE_PRODUCT.id)
       expect(foundPurchases.length).toBe(1)
-      expect(foundPurchases[0]).toEqual(FAKE_PRODUCT_PURCHASE)
+      expect(foundPurchases[0]).toEqual(FAKE_PURCHASE)
     })
 
     test('should return an empty list when product is not found', async () => {
@@ -81,18 +81,18 @@ describe('ProductPurchasesRepository', () => {
   describe('store', () => {
     test('should create a new purchase when brand new', async () => {
       const { sut } = makeSut()
-      await sut.store([FAKE_PRODUCT_PURCHASE])
+      await sut.store([FAKE_PURCHASE])
       const existingPurchases = await repository.find()
-      expect(existingPurchases).toEqual([FAKE_PRODUCT_PURCHASE])
+      expect(existingPurchases).toEqual([FAKE_PURCHASE])
     })
 
     test('should update purchase when already exists', async () => {
       const { sut } = makeSut()
-      await repository.save(FAKE_PRODUCT_PURCHASE)
-      FAKE_PRODUCT_PURCHASE.price = 10
-      await sut.store([FAKE_PRODUCT_PURCHASE])
+      await repository.save(FAKE_PURCHASE)
+      FAKE_PURCHASE.price = 10
+      await sut.store([FAKE_PURCHASE])
       const existingPurchases = await repository.find()
-      expect(existingPurchases).toEqual([FAKE_PRODUCT_PURCHASE])
+      expect(existingPurchases).toEqual([FAKE_PURCHASE])
     })
   })
 })

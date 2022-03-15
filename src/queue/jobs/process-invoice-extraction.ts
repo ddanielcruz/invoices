@@ -4,11 +4,11 @@ import { logger } from '../../config/logger'
 import { AppError, ExtractionError, InternalServerError, NotFoundError } from '../../core/errors'
 import { ExtractCompany } from '../../core/services/companies/extract-company'
 import { ExtractInvoice, InvoiceProduct } from '../../core/services/invoices/extract-invoice'
-import { Company, Product, ProductPurchase } from '../../database/entities'
+import { Company, Product, Purchase } from '../../database/entities'
 import {
   CompaniesRepository,
   InvoicesRepository,
-  ProductPurchasesRepository,
+  PurchasesRepository,
   ProductsRepository
 } from '../../database/repositories'
 import { BaseJob } from './base-job'
@@ -27,8 +27,8 @@ export class ProcessInvoiceExtraction implements BaseJob<string> {
     @inject('ProductsRepository')
     private readonly productsRepository: ProductsRepository,
 
-    @inject('ProductPurchasesRepository')
-    private readonly purchasesRepository: ProductPurchasesRepository,
+    @inject('PurchasesRepository')
+    private readonly purchasesRepository: PurchasesRepository,
 
     private readonly extractCompany: ExtractCompany,
     private readonly extractInvoice: ExtractInvoice
@@ -49,7 +49,7 @@ export class ProcessInvoiceExtraction implements BaseJob<string> {
       const company = await this.loadOrExtractCompany(document)
 
       // Initialize purchases map to group duplicated products
-      const purchasesMap: { [key: string]: ProductPurchase } = {}
+      const purchasesMap: { [key: string]: Purchase } = {}
 
       // Store each product of the invoice
       for (const invoiceProduct of products) {
@@ -59,13 +59,13 @@ export class ProcessInvoiceExtraction implements BaseJob<string> {
         // Compose product-price key and get it from the map
         const { referenceCode, price, quantity } = invoiceProduct
         const key = `${referenceCode}-${price}`
-        let purchase: ProductPurchase | undefined = purchasesMap[key]
+        let purchase: Purchase | undefined = purchasesMap[key]
 
         // Simply sum the quantity if it exists, otherwise creates a new purchase
         if (purchase) {
           purchase.quantity += quantity
         } else {
-          purchase = purchasesMap[key] = new ProductPurchase()
+          purchase = purchasesMap[key] = new Purchase()
           purchase.invoiceId = invoice.id
           purchase.productId = product.id
           purchase.price = price

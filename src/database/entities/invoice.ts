@@ -8,7 +8,7 @@ import {
 } from 'typeorm'
 
 import { Company } from './company'
-import { ProductPurchase } from './product-purchase'
+import { Purchase } from './purchase'
 
 export type InvoiceStatus = 'PENDING' | 'SUCCESS' | 'FAILURE'
 
@@ -38,8 +38,8 @@ export class Invoice {
   @ManyToOne(() => Company, company => company.invoices)
   company: Company
 
-  @OneToMany(() => ProductPurchase, purchase => purchase.invoice)
-  purchases: ProductPurchase[] | null
+  @OneToMany(() => Purchase, purchase => purchase.invoice)
+  purchases: Purchase[] | null
 
   constructor(url: string) {
     this.url = url

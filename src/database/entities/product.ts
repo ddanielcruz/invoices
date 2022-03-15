@@ -8,7 +8,7 @@ import {
 } from 'typeorm'
 
 import { Company } from './company'
-import { ProductPurchase } from './product-purchase'
+import { Purchase } from './purchase'
 
 @Entity({ name: 'products' })
 export class Product {
@@ -33,6 +33,6 @@ export class Product {
   @ManyToOne(() => Company, company => company.products)
   company: Company | null
 
-  @OneToMany(() => ProductPurchase, purchase => purchase.product)
-  purchases: ProductPurchase[] | null
+  @OneToMany(() => Purchase, purchase => purchase.product)
+  purchases: Purchase[] | null
 }

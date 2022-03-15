@@ -4,7 +4,7 @@ import { FAKE_COMPANY_WITH_ADDR, FAKE_INVOICE } from '../../mocks/factories'
 import {
   makeCompaniesRepository,
   makeInvoicesRepository,
-  makeProductPurchasesRepository,
+  makePurchasesRepository,
   makeProductsRepository
 } from '../../mocks/repositories'
 import {
@@ -18,7 +18,7 @@ const makeSut = () => {
   const invoicesRepositoryStub = makeInvoicesRepository()
   const companiesRepositoryStub = makeCompaniesRepository()
   const productsRepositoryStub = makeProductsRepository()
-  const purchasesRepositoryStub = makeProductPurchasesRepository()
+  const purchasesRepositoryStub = makePurchasesRepository()
   const extractCompanyStub = makeExtractCompany()
   const extractInvoiceStub = makeExtractInvoice()
   const sut = new ProcessInvoiceExtraction(

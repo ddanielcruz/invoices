@@ -4,8 +4,8 @@ import { NumericColumnTransformer } from '../transformers'
 import { Invoice } from './invoice'
 import { Product } from './product'
 
-@Entity({ name: 'product_purchases' })
-export class ProductPurchase {
+@Entity({ name: 'purchases' })
+export class Purchase {
   @PrimaryGeneratedColumn('uuid')
   id: string
 

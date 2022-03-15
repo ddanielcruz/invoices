@@ -8,7 +8,7 @@ import {
   Country,
   Invoice,
   Product,
-  ProductPurchase,
+  Purchase,
   State
 } from '../../src/database/entities'
 
@@ -91,16 +91,16 @@ export const makeProdudct = (company: Company, other?: Partial<Product>): Produc
 }
 export const FAKE_PRODUCT = makeProdudct(FAKE_COMPANY)
 
-export const makeProductPurchase = (
+export const makePurchase = (
   invoice: Invoice,
   product: Product,
-  other?: Partial<ProductPurchase>
-): ProductPurchase => {
-  const purchase = new ProductPurchase()
+  other?: Partial<Purchase>
+): Purchase => {
+  const purchase = new Purchase()
   purchase.invoiceId = invoice.id
   purchase.productId = product.id
   purchase.price = other?.price ?? faker.datatype.number()
   purchase.quantity = other?.quantity ?? faker.datatype.number()
   return purchase
 }
-export const FAKE_PRODUCT_PURCHASE = makeProductPurchase(FAKE_INVOICE, FAKE_PRODUCT)
+export const FAKE_PURCHASE = makePurchase(FAKE_INVOICE, FAKE_PRODUCT)

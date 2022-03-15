@@ -1,11 +1,11 @@
 import faker from '@faker-js/faker'
 
-import { City, Company, Invoice, Product, ProductPurchase } from '../../src/database/entities'
+import { City, Company, Invoice, Product, Purchase } from '../../src/database/entities'
 import {
   CitiesRepository,
   CompaniesRepository,
   InvoicesRepository,
-  ProductPurchasesRepository,
+  PurchasesRepository,
   ProductsRepository
 } from '../../src/database/repositories'
 import { FAKE_CITY, FAKE_COMPANY_WITH_ADDR, FAKE_INVOICE, FAKE_STATE } from './factories'
@@ -71,15 +71,15 @@ export const makeProductsRepository = (): ProductsRepository => {
   return new ProductsRepositoryStub()
 }
 
-export const makeProductPurchasesRepository = (): ProductPurchasesRepository => {
-  class ProductPurchasesRepositoryStub implements ProductPurchasesRepository {
-    async findByProduct(): Promise<ProductPurchase[]> {
+export const makePurchasesRepository = (): PurchasesRepository => {
+  class PurchasesRepositoryStub implements PurchasesRepository {
+    async findByProduct(): Promise<Purchase[]> {
       return []
     }
 
-    async store(purchases: ProductPurchase[]): Promise<ProductPurchase[]> {
+    async store(purchases: Purchase[]): Promise<Purchase[]> {
       return purchases
     }
   }
-  return new ProductPurchasesRepositoryStub()
+  return new PurchasesRepositoryStub()
 }
