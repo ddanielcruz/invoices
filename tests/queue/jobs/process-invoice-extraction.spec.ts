@@ -1,4 +1,5 @@
 import { ExtractionError, InternalServerError, NotFoundError } from '../../../src/core/errors'
+import { Company } from '../../../src/database/entities'
 import { ProcessInvoiceExtraction } from '../../../src/queue/jobs/process-invoice-extraction'
 import { FAKE_COMPANY_WITH_ADDR, FAKE_INVOICE } from '../../mocks/factories'
 import {
@@ -170,6 +171,16 @@ describe('ProcessInvoiceExtraction', () => {
     const storeSpy = jest.spyOn(invoicesRepositoryStub, 'store')
     await sut.execute(FAKE_ID)
     expect(storeSpy).toHaveBeenCalledWith({ ...FAKE_INVOICE, status: 'SUCCESS' })
+  })
+
+  test('should set company ID to extracted company when completed extraction', async () => {
+    const { sut, invoicesRepositoryStub, companiesRepositoryStub } = makeSut()
+    const storeSpy = jest.spyOn(invoicesRepositoryStub, 'store')
+    jest
+      .spyOn(companiesRepositoryStub, 'store')
+      .mockImplementationOnce((company: Company) => Promise.resolve({ ...company, id: 'any-id' }))
+    await sut.execute(FAKE_ID)
+    expect(storeSpy).toHaveBeenCalledWith({ ...FAKE_INVOICE, companyId: 'any-id' })
   })
 
   test('should set invoice status to FAILURE with error information on custom errors', async () => {

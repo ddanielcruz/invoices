@@ -80,6 +80,7 @@ export class ProcessInvoiceExtraction implements BaseJob<string> {
       // Set invoice extraction as SUCCESS and complete the processing
       invoice.status = 'SUCCESS'
       invoice.issuedAt = issueDate
+      invoice.companyId = company.id
       await this.invoicesRepository.store(invoice)
       logger.info(`Successfully extracted invoice "${id}"`)
     } catch (error: any) {
