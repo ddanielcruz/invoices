@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 export type ReportType = 'PERIOD_SUMMARY_CSV' | 'PERIOD_DETAILED_PDF'
+
 export type ReportStatus = 'PENDING' | 'SUCCESS' | 'FAILURE'
 
 @Entity({ name: 'reports' })

@@ -1,14 +1,21 @@
 import faker from '@faker-js/faker'
 
-import { City, Company, Invoice, Product, Purchase } from '../../src/database/entities'
+import { City, Company, Invoice, Product, Purchase, Report } from '../../src/database/entities'
 import {
   CitiesRepository,
   CompaniesRepository,
   InvoicesRepository,
   PurchasesRepository,
-  ProductsRepository
+  ProductsRepository,
+  ReportsRepository
 } from '../../src/database/repositories'
-import { FAKE_CITY, FAKE_COMPANY_WITH_ADDR, FAKE_INVOICE, FAKE_STATE } from './factories'
+import {
+  FAKE_CITY,
+  FAKE_COMPANY_WITH_ADDR,
+  FAKE_INVOICE,
+  FAKE_REPORT,
+  FAKE_STATE
+} from './factories'
 
 export const makeInvoicesRepository = (): InvoicesRepository => {
   class InvoicesRepositoryStub implements InvoicesRepository {
@@ -82,4 +89,17 @@ export const makePurchasesRepository = (): PurchasesRepository => {
     }
   }
   return new PurchasesRepositoryStub()
+}
+
+export const makeReportsRepository = (): ReportsRepository => {
+  class ReportsRepositoryStub implements ReportsRepository {
+    async findById(): Promise<Report | undefined> {
+      return FAKE_REPORT
+    }
+
+    async store(report: Report): Promise<Report> {
+      return report
+    }
+  }
+  return new ReportsRepositoryStub()
 }

@@ -9,6 +9,7 @@ import {
   Invoice,
   Product,
   Purchase,
+  Report,
   State
 } from '../../src/database/entities'
 
@@ -104,3 +105,17 @@ export const makePurchase = (
   return purchase
 }
 export const FAKE_PURCHASE = makePurchase(FAKE_INVOICE, FAKE_PRODUCT)
+
+export const makeReport = (other?: Partial<Report>): Report => {
+  const report = new Report()
+  report.id = other?.id ?? faker.datatype.uuid()
+  report.key = other?.key ?? faker.lorem.words()
+  report.type = other?.type ?? 'PERIOD_DETAILED_PDF'
+  report.data = other?.data ?? JSON.parse(faker.datatype.json())
+  report.status = other?.status ?? 'PENDING'
+  report.error = other?.error ?? null
+  report.createdAt = other?.createdAt ?? new Date()
+
+  return report
+}
+export const FAKE_REPORT = makeReport()

@@ -5,7 +5,8 @@ import {
   CompaniesRepositoryImpl,
   InvoicesRepositoryImpl,
   PurchasesRepositoryImpl,
-  ProductsRepositoryImpl
+  ProductsRepositoryImpl,
+  ReportsRepositoryImpl
 } from '../database/repositories'
 import { queue } from '../queue'
 
@@ -18,3 +19,4 @@ container.registerSingleton('CompaniesRepository', CompaniesRepositoryImpl)
 container.registerSingleton('InvoicesRepository', InvoicesRepositoryImpl)
 container.registerSingleton('ProductsRepository', ProductsRepositoryImpl)
 container.registerSingleton('PurchasesRepository', PurchasesRepositoryImpl)
+container.registerSingleton('ReportsRepository', ReportsRepositoryImpl)
