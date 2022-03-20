@@ -1,10 +1,11 @@
-import { getRepository, Repository } from 'typeorm'
+import { Between, getRepository, Repository } from 'typeorm'
 
 import { Invoice } from '../entities'
 
 export interface InvoicesRepository {
   findById(id: string): Promise<Invoice | undefined>
   findByUrl(url: string): Promise<Invoice | undefined>
+  findManyByPeriod(startDate: Date, endDate: Date): Promise<Invoice[]>
   store(invoice: Invoice): Promise<Invoice>
 }
 
@@ -21,6 +22,14 @@ export class InvoicesRepositoryImpl implements InvoicesRepository {
 
   findByUrl(url: string): Promise<Invoice | undefined> {
     return this.repository.findOne({ url: this.sanitizeUrl(url) })
+  }
+
+  findManyByPeriod(startDate: Date, endDate: Date): Promise<Invoice[]> {
+    endDate.setHours(23, 59, 59)
+    return this.repository.find({
+      where: { issuedAt: Between(startDate, endDate) },
+      relations: ['company', 'company.address', 'purchases', 'purchases.product']
+    })
   }
 
   store(invoice: Invoice): Promise<Invoice> {
