@@ -4,6 +4,11 @@ export type ReportType = 'PERIOD_SUMMARY_CSV' | 'PERIOD_DETAILED_PDF'
 
 export type ReportStatus = 'PENDING' | 'SUCCESS' | 'FAILURE'
 
+export interface ReportPeriodData {
+  startDate: Date
+  endDate: Date
+}
+
 @Entity({ name: 'reports' })
 export class Report {
   @PrimaryGeneratedColumn()
@@ -16,7 +21,7 @@ export class Report {
   type: ReportType
 
   @Column({ type: 'json' })
-  data: any
+  data: ReportPeriodData
 
   @Column({ type: 'varchar' })
   status: ReportStatus = 'PENDING'
