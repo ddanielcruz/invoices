@@ -26,4 +26,8 @@ export class Purchase {
 
   @ManyToOne(() => Invoice, invoice => invoice.purchases)
   invoice: Invoice | null
+
+  get total(): number {
+    return this.price * this.quantity
+  }
 }

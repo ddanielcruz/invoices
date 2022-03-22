@@ -14,21 +14,32 @@ import {
   FAKE_COMPANY_WITH_ADDR,
   FAKE_INVOICE,
   FAKE_PRODUCT,
-  FAKE_PURCHASE,
   FAKE_REPORT,
-  FAKE_STATE
+  FAKE_STATE,
+  makeAddress,
+  makeCompany,
+  makeInvoice,
+  makeProdudct,
+  makePurchase
 } from './factories'
 
 export const makeInvoicesRepository = (): InvoicesRepository => {
   class InvoicesRepositoryStub implements InvoicesRepository {
     async findManyByPeriod(): Promise<Invoice[]> {
-      return [
-        {
-          ...FAKE_INVOICE,
-          company: FAKE_COMPANY_WITH_ADDR,
-          purchases: [{ ...FAKE_PURCHASE, product: FAKE_PRODUCT }]
-        }
-      ]
+      const invoiceOne = makeInvoice(FAKE_INVOICE)
+      invoiceOne.company = FAKE_COMPANY_WITH_ADDR
+      invoiceOne.purchases = [makePurchase(invoiceOne, FAKE_PRODUCT, { price: 10, quantity: 2 })]
+      invoiceOne.purchases[0].product = FAKE_PRODUCT
+
+      const invoiceTwo = makeInvoice()
+      const address = makeAddress(FAKE_CITY)
+      invoiceTwo.company = makeCompany(address)
+      invoiceTwo.company.address = address
+      const product = makeProdudct(invoiceTwo.company)
+      invoiceTwo.purchases = [makePurchase(invoiceTwo, product, { price: 5.3, quantity: 0.85 })]
+      invoiceTwo.purchases[0].product = product
+
+      return [invoiceOne, invoiceTwo]
     }
 
     async findById(): Promise<Invoice | undefined> {

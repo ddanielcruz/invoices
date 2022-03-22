@@ -56,7 +56,7 @@ describe('FindManyByPeriod', () => {
   test('should return a list of invoices on success', async () => {
     const { sut } = makeSut()
     const invoices = await sut.execute(FAKE_DATA)
-    expect(invoices.length).toBe(1)
+    expect(invoices.length).toBe(2)
     expect(invoices[0].id).toBe(FAKE_INVOICE.id)
   })
 

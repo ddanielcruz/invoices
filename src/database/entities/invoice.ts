@@ -41,6 +41,14 @@ export class Invoice {
   @OneToMany(() => Purchase, purchase => purchase.invoice)
   purchases: Purchase[] | null
 
+  get total(): number | null {
+    if (!this.purchases) {
+      return null
+    }
+
+    return this.purchases.reduce<number>((total, purchase) => total + purchase.total, 0)
+  }
+
   constructor(url: string) {
     this.url = url
   }
