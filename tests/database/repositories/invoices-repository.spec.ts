@@ -194,5 +194,16 @@ describe('InvoicesRepository', () => {
       const foundInvoices = await sut.findManyByPeriod(startDate, endDate)
       expect(foundInvoices.length).toBe(1)
     })
+
+    test('should order invoices by issue date', async () => {
+      const { sut } = makeSut()
+      const invoiceOne = makeInvoice({ companyId: FAKE_COMPANY.id, issuedAt: betweenDates[2] })
+      const invoiceTwo = makeInvoice({ companyId: FAKE_COMPANY.id, issuedAt: betweenDates[1] })
+      await repository.save([invoiceOne, invoiceTwo])
+      const foundInvoices = await sut.findManyByPeriod(startDate, endDate)
+      expect(foundInvoices.length).toBe(2)
+      expect(foundInvoices[0].id).toBe(invoiceTwo.id)
+      expect(foundInvoices[1].id).toBe(invoiceOne.id)
+    })
   })
 })
