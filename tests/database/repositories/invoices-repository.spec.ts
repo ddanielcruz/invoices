@@ -18,7 +18,6 @@ import {
   FAKE_ADDRESS,
   FAKE_CITY,
   FAKE_COMPANY,
-  FAKE_COMPANY_WITH_ADDR,
   FAKE_COUNTRY,
   FAKE_INVOICE,
   FAKE_PRODUCT,
@@ -162,7 +161,13 @@ describe('InvoicesRepository', () => {
       const [foundInvoice] = await sut.findManyByPeriod(startDate, endDate)
       expect(foundInvoice).toEqual({
         ...invoice,
-        company: FAKE_COMPANY_WITH_ADDR,
+        company: {
+          ...FAKE_COMPANY,
+          address: {
+            ...FAKE_ADDRESS,
+            city: FAKE_CITY
+          }
+        },
         purchases: [{ ...purchase, product: FAKE_PRODUCT }]
       })
     })

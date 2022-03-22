@@ -28,6 +28,7 @@ export const makeInvoicesRepository = (): InvoicesRepository => {
     async findManyByPeriod(): Promise<Invoice[]> {
       const invoiceOne = makeInvoice(FAKE_INVOICE)
       invoiceOne.company = FAKE_COMPANY_WITH_ADDR
+      invoiceOne.company!.address!.city = FAKE_CITY
       invoiceOne.purchases = [makePurchase(invoiceOne, FAKE_PRODUCT, { price: 10, quantity: 2 })]
       invoiceOne.purchases[0].product = FAKE_PRODUCT
 
@@ -35,6 +36,7 @@ export const makeInvoicesRepository = (): InvoicesRepository => {
       const address = makeAddress(FAKE_CITY)
       invoiceTwo.company = makeCompany(address)
       invoiceTwo.company.address = address
+      invoiceTwo.company.address.city = FAKE_CITY
       const product = makeProdudct(invoiceTwo.company)
       invoiceTwo.purchases = [makePurchase(invoiceTwo, product, { price: 5.3, quantity: 0.85 })]
       invoiceTwo.purchases[0].product = product

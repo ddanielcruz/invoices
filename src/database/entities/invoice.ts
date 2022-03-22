@@ -36,7 +36,7 @@ export class Invoice {
   createdAt: Date
 
   @ManyToOne(() => Company, company => company.invoices)
-  company: Company
+  company: Company | null
 
   @OneToMany(() => Purchase, purchase => purchase.invoice)
   purchases: Purchase[] | null

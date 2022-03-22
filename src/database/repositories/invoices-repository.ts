@@ -28,7 +28,13 @@ export class InvoicesRepositoryImpl implements InvoicesRepository {
     endDate.setHours(23, 59, 59)
     return this.repository.find({
       where: { issuedAt: Between(startDate, endDate) },
-      relations: ['company', 'company.address', 'purchases', 'purchases.product'],
+      relations: [
+        'company',
+        'company.address',
+        'company.address.city',
+        'purchases',
+        'purchases.product'
+      ],
       order: { issuedAt: 'ASC' }
     })
   }
