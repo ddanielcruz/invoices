@@ -1,6 +1,5 @@
 import { Style, TFontDictionary } from 'pdfmake/interfaces'
 
-// TODO: Set up Roboto font
 export const fonts: TFontDictionary = {
   Helvetica: {
     normal: 'Helvetica',
@@ -10,7 +9,17 @@ export const fonts: TFontDictionary = {
   }
 }
 
-// TODO: Set up margin and other document properties
 export const defaultStyle: Style = {
-  font: 'Helvetica'
+  font: 'Helvetica',
+  fontSize: 13
+}
+
+export const bold = true
+
+export const colors = {
+  darkAccent: '#0b5394',
+  lightAccent: '#1155cc',
+  divider: '#999',
+  primaryText: '#343434',
+  secondaryText: '#666'
 }

@@ -26,7 +26,7 @@ import {
 export const makeInvoicesRepository = (): InvoicesRepository => {
   class InvoicesRepositoryStub implements InvoicesRepository {
     async findManyByPeriod(): Promise<Invoice[]> {
-      const invoiceOne = makeInvoice(FAKE_INVOICE)
+      const invoiceOne = makeInvoice({ ...FAKE_INVOICE, issuedAt: faker.date.recent() })
       invoiceOne.company = FAKE_COMPANY_WITH_ADDR
       invoiceOne.company!.address!.city = FAKE_CITY
       invoiceOne.purchases = [makePurchase(invoiceOne, FAKE_PRODUCT, { price: 10, quantity: 2 })]
@@ -37,9 +37,17 @@ export const makeInvoicesRepository = (): InvoicesRepository => {
       invoiceTwo.company = makeCompany(address)
       invoiceTwo.company.address = address
       invoiceTwo.company.address.city = FAKE_CITY
-      const product = makeProdudct(invoiceTwo.company)
-      invoiceTwo.purchases = [makePurchase(invoiceTwo, product, { price: 5.3, quantity: 0.85 })]
-      invoiceTwo.purchases[0].product = product
+      invoiceTwo.purchases = []
+      for (let idx = 0; idx < 3; idx++) {
+        const product = makeProdudct(invoiceTwo.company)
+        invoiceTwo.purchases.push(
+          makePurchase(invoiceTwo, product, {
+            price: parseFloat(faker.commerce.price()),
+            quantity: faker.datatype.float({ min: 0.1, max: 2.5 })
+          })
+        )
+        invoiceTwo.purchases[idx].product = product
+      }
 
       return [invoiceOne, invoiceTwo]
     }

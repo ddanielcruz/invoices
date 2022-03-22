@@ -85,8 +85,8 @@ export const makeProdudct = (company: Company, other?: Partial<Product>): Produc
   product.id = other?.id ?? faker.datatype.uuid()
   product.companyId = company.id
   product.referenceCode = other?.referenceCode ?? faker.datatype.number().toString()
-  product.name = other?.name ?? faker.lorem.words()
-  product.unitOfMeasure = other?.unitOfMeasure ?? faker.lorem.word()
+  product.name = other?.name ?? faker.commerce.productName()
+  product.unitOfMeasure = other?.unitOfMeasure ?? faker.random.arrayElement(['UN', 'KG', 'G'])
   product.createdAt = other?.createdAt ?? new Date()
   return product
 }
