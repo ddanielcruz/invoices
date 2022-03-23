@@ -1,5 +1,7 @@
 import { ExtractCompany } from '../../src/core/services/companies/extract-company'
 import { ExtractInvoice, Invoice } from '../../src/core/services/invoices/extract-invoice'
+import { GeneratePeriodDetailedPDFReport } from '../../src/core/services/reports/generate-period-detailed-pdf-report'
+import { GeneratePeriodSummaryCSVReport } from '../../src/core/services/reports/generate-period-summary-csv-report'
 import { Address, Company } from '../../src/database/entities'
 
 export const FAKE_EXTRACTED_COMPANY = {
@@ -66,4 +68,22 @@ export const makeExtractInvoice = (): ExtractInvoice => {
     }
   }
   return new ExtractInvoiceStub() as any
+}
+
+export const makeGeneratePeriodDetailedPDFReport = (): GeneratePeriodDetailedPDFReport => {
+  class GeneratePeriodDetailedPDFReportStub implements Partial<GeneratePeriodDetailedPDFReport> {
+    async execute() {
+      return 'any-key'
+    }
+  }
+  return new GeneratePeriodDetailedPDFReportStub() as any
+}
+
+export const makeGeneratePeriodSummaryCSVReport = (): GeneratePeriodSummaryCSVReport => {
+  class GeneratePeriodSummaryCSVReportStub implements Partial<GeneratePeriodSummaryCSVReport> {
+    async execute() {
+      return 'any-key'
+    }
+  }
+  return new GeneratePeriodSummaryCSVReportStub() as any
 }
