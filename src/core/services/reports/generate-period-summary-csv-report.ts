@@ -36,17 +36,13 @@ export class GeneratePeriodSummaryCSVReport {
     })
 
     return new Promise<string>((resolve, reject) => {
-      try {
-        // Initialize CSV tream and write rows
-        const stream = format({ headers: ['company', 'document', 'issuedAt', 'total'] })
-        stream.pipe(createWriteStream(`tmp/${key}`))
-        stream.on('error', reject)
-        stream.on('end', () => resolve(key))
-        rows.forEach(row => stream.write(row))
-        stream.end()
-      } catch (error) {
-        reject(error)
-      }
+      // Initialize CSV tream and write rows
+      const stream = format({ headers: ['company', 'document', 'issuedAt', 'total'] })
+      stream.pipe(createWriteStream(`tmp/${key}`))
+      stream.on('error', reject)
+      stream.on('end', () => resolve(key))
+      rows.forEach(row => stream.write(row))
+      stream.end()
     })
   }
 }
