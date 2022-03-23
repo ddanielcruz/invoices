@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { AfterLoad, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 export type ReportType = 'PERIOD_SUMMARY_CSV' | 'PERIOD_DETAILED_PDF'
 
@@ -31,4 +31,15 @@ export class Report {
 
   @CreateDateColumn()
   createdAt: Date
+
+  @AfterLoad()
+  parseData() {
+    if (typeof this.data?.startDate === 'string') {
+      this.data.startDate = new Date(this.data.startDate)
+    }
+
+    if (typeof this.data?.endDate === 'string') {
+      this.data.endDate = new Date(this.data.endDate)
+    }
+  }
 }

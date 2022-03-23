@@ -51,7 +51,7 @@ export class ProcessReportGeneration implements BaseJob<string> {
       if (error instanceof AppError) {
         report.error = error.serialize()
       } else {
-        logger.error(error)
+        logger.error(error.stack)
         report.error = new InternalServerError(error).serialize()
       }
 
