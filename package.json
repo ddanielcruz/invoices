@@ -28,6 +28,7 @@
     "typeorm": "ts-node --transpile-only node_modules/typeorm/cli.js"
   },
   "dependencies": {
+    "@fast-csv/format": "^4.3.5",
     "axios": "^0.26.0",
     "bullmq": "^1.76.1",
     "cheerio": "^1.0.0-rc.10",
